@@ -1,15 +1,11 @@
-const express = require('express' 4.17.1)
-const app = express()
-const port = 3080
-
-app.get('/game', (req, res) => {
-    if ()
-    res.send
-})
 
 //join app in room 1
 //give username and want to join room - ok , 4 people start room
 //if four people, round true
+
+//create question array from 100 random questions - in a file?
+//give next question - gets small and smaller - if empty  no more questions
+//seperate query for final score
 
 //they will POST 
 //name: total score, latest input, score for round, 
@@ -18,9 +14,6 @@ app.get('/game', (req, res) => {
 //nameArray = [[name, 0], [name, 1], [name, 2], ....]
 //array: = [[name, answer], [name, answer].....]
 
-//create question array from 100 random questions - in a file?
-//give next question - gets small and smaller - if empty  no more questions
-//seperate query for final score
 
 //each person asks for the questions
 

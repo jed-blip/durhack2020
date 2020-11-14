@@ -17,7 +17,13 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/">
-          <Game game_state={gameState} set_game_state={setGameState} username={username} set_username={setUsername}/>
+          <div className="main-container">
+            <div className="filler"></div>
+            <div className="secondary-container">
+              <Game game_state={gameState} set_game_state={setGameState} username={username} set_username={setUsername}/>
+            </div>        
+            <div className="filler"></div>
+          </div>
         </Route>
       </Switch>
     </Router>

@@ -1,5 +1,6 @@
 import { supportsHistory } from "history/DOMUtils";
 import React from "react";
+import Header from './layout/header';
 
 class Login extends React.Component {
     /*componentWillMount() {
@@ -13,8 +14,11 @@ class Login extends React.Component {
     }*/
 
     render() {
-        <div>
-        </div>
+        return (
+            <div>
+                <Header />
+            </div>
+    )
     }
 }
 

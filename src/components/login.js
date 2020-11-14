@@ -1,6 +1,6 @@
 import React from "react";
 import Header from './layout/header';
-
+import './login.css';
 class Login extends React.Component {
     /*componentWillMount() {
         setInterval(() => {
@@ -34,16 +34,34 @@ class Login extends React.Component {
     render() {
         return(
             <div>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Name:
-                        <input type="text" value={this.state.value} onChange={this.handleChange} />
-                    </label>
-                    <input type="submit" value="Submit" />
+                <Header />
+                <div style={{paddingTop:'10%'}}></div>
+                <button className="push_button red">Create Room</button>
+                <div style={{paddingTop:"20px"}}></div>
+                <button type="submit" className="push_button blue">Join Room</button>
+                <div style={{paddingTop:"20px"}}></div>
+                <form onSubmit={this.handleSubmit} style={formInputStyle}>
+                    <input 
+                        type="text" 
+                        name="name" 
+                        style={{ flex: '10', padding: '10px' }}
+                        placeholder="User Name" 
+                        value={this.state.value}
+                        onChange={this.handleChange}
+                    />
+                    
                 </form> 
             </div>
         )
     }
+    
 }
+const formInputStyle={
+    width:"50%",
+    display:"flex",
+    margin:"auto"
+    
 
+
+}
 export default Login;

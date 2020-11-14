@@ -38,9 +38,9 @@ class Login extends React.Component {
                 <div style={{paddingTop:'10%'}}></div>
                 <button className="push_button red">Create Room</button>
                 <div style={{paddingTop:"20px"}}></div>
-                <button type="submit" className="push_button blue">Join Room</button>
+                <button type="submit" className="push_button blue" onClick={this.handleSubmit}>Join Room</button>
                 <div style={{paddingTop:"20px"}}></div>
-                <form onSubmit={this.handleSubmit} style={formInputStyle}>
+                <form style={formInputStyle}>
                     <input 
                         type="text" 
                         name="name" 
@@ -49,7 +49,6 @@ class Login extends React.Component {
                         value={this.state.value}
                         onChange={this.handleChange}
                     />
-                    
                 </form> 
             </div>
         )

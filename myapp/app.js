@@ -31,6 +31,7 @@ var totalScores = [];
 var scoreArray = [];
 var arrayFull = False;
 var personObject = {}
+var answerObject = {}
 
 //Initialises the questions.
 function initialiseQuestions() {
@@ -116,7 +117,7 @@ app.post('/getscore', (req, res) => {
     for (var i; i < nameArray.length(); i++) {
         if (totalScores[i] === nameArray[i]) {
             for (var y; y < nameArray.length(); y++) {
-                if (nameArray[i] === scoreArray[yy][0]){
+                if (nameArray[i] === scoreArray[y][0]){
                     index = name
                     break
                 }
@@ -126,7 +127,7 @@ app.post('/getscore', (req, res) => {
         }
     }
     for (var y; y < totalScores.length(); y++) {
-        personObject[totalScores[y][0]] = totalScores[y][1], totalScores[y][2];
+        personObject[totalScores[y][0]] = [totalScores[y][1], totalScores[y][2]];
     }
     res.send(personObject)
 })
@@ -135,9 +136,8 @@ app.post('/getscore', (req, res) => {
 app.get('/getanswers', (req, res) => {
     for (var i; i < answerArray; i++) {
         if (answerArray[i][0] != req.query.name) {
-            array.push(answerArray[i]);
+            answerObject[answerArray[y][0]] = answerArray[y][1];
         }
     }
-    pairs.push(name, answer);
-    res.send()
+    res.send(answerObject);
 })

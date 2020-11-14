@@ -2,13 +2,14 @@ const express = require('express');
 const app = express();
 const port = 3080;
 
-var nameArray = [];
-var answerArray = [];
-var peopleCount = 0;
+var nameArray = [],
+    answerArray = [],
+    peopleCount = 0;
 var questionCount = 0;
 var qIndex = 9;
 var roomFull = False;
 var questionsEmpty = False;
+var arrayFull = False;
 
 //ask how to get parameters, what to put after slash
 app.post('/', (req, res) => {
@@ -43,10 +44,15 @@ app.get('/question', function (req, res) {
     res.send(question, questionsEmpty);
 })
 
-app.post('/game', (req, res) => {
+app.post('/matching', (req, res) => {
     answerArray.push([name, answer]);
     if (answerArray.length() === 4) {
-        res.send(True)
+        arrayFull = True;
     }
+    res.send(arrayFull);
+})
+
+app.get('/matching', (req, res) => {
+    
 })
 

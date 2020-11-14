@@ -3,12 +3,7 @@ import { withRouter } from "react-router-dom";
 import Login from "./login";
 import Question from "./question";
 import Answers from "./answers";
-
-class MidScore extends React.Component {
-    componentWillMount() {
-        //
-    }
-}
+import MidScore from "./midscore";
 
 class FinalScore extends React.Component {
     componentWillMount() {
@@ -19,7 +14,6 @@ class FinalScore extends React.Component {
 class Game extends React.Component {
 
     render() {
-        console.log(this.props.game_state);
 
         if (this.props.game_state === "login") {
             return (
@@ -35,7 +29,7 @@ class Game extends React.Component {
             );
         } else if (this.props.game_state === "mid-score") {
             return (
-                <MidScore />
+                <MidScore username={this.props.username} set_game_state={this.props.set_game_state}/>
             );
         } else if (this.props.game_state === "final-score") {
             return (

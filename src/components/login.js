@@ -1,4 +1,5 @@
 import React from "react";
+import Header from './layout/header';
 
 class Login extends React.Component {
     /*componentWillMount() {

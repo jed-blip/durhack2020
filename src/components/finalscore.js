@@ -1,5 +1,4 @@
 import React from "react";
-import Waiting from "./waiting";
 import Header from './layout/header';
 import './midscore.css'
 

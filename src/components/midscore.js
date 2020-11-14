@@ -1,5 +1,4 @@
 import React from "react";
-import Waiting from "./waiting";
 import Header from './layout/header';
 import './midscore.css'
 
@@ -30,9 +29,9 @@ class Midscore extends React.Component {
 
 
         var total = []
-        for (var key in scores) {
-            if (scores.hasOwnProperty(key)) {
-                total.push([key, scores[key][1]]);
+        for (var key2 in scores) {
+            if (scores.hasOwnProperty(key2)) {
+                total.push([key2, scores[key2][1]]);
             }
         }
         total.sort(function(a, b) {
@@ -61,11 +60,11 @@ class Midscore extends React.Component {
             </div>)
         }
 
-        for (var each in this.state.total) {
+        for (var each2 in this.state.total) {
             totalScoreList.push(<div class="item">
-                <p className="name-text">{this.state.total[each][0]}:</p>
+                <p className="name-text">{this.state.total[each2][0]}:</p>
                 <div className="flex-filler"></div>
-                <p className="score-text">{this.state.total[each][1]}</p>
+                <p className="score-text">{this.state.total[each2][1]}</p>
             </div>)
         }
 

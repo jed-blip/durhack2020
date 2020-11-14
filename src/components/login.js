@@ -59,9 +59,7 @@ class Login extends React.Component {
 const formInputStyle={
     width:"50%",
     display:"flex",
-    margin:"auto"
-    
-
-
+    margin:"auto",
+    flexDirection: "column",
 }
 export default Login;

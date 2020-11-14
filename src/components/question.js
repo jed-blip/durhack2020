@@ -1,5 +1,7 @@
 import React from "react";
 import Waiting from "./waiting";
+import Header from './layout/header';
+import './question.css'
 
 class Question extends React.Component {
     constructor(props) {
@@ -27,13 +29,14 @@ class Question extends React.Component {
         if (this.state.waiting === false) {
             return(
                 <div>
-                    <p className="question-text">{this.state.question}</p>
+                    <Header />
+                    <h1 className="question-text">{this.state.question}</h1>
                     <form className="form" onSubmit={this.handleSubmit}>
                         <label>
                             Answer:
                             <input type="text" value={this.state.value} onChange={this.handleChange} />
                         </label>
-                        <input type="submit" value="Submit" />
+                        <input className="submit-button" type="submit" value="Submit" />
                     </form> 
                 </div>
             );

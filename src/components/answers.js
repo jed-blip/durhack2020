@@ -7,7 +7,7 @@ class Answers extends React.Component {
     constructor(props) {
         super(props);
         // chosenAnswers is {answer:chosen person}
-        this.state = {chosenAnswers:{},answers: "", names: [], waiting: false};
+        this.state = {chosenAnswers:{},answers: {}, names: [], waiting: false};
         this.onChangeUser = this.onChangeUser.bind(this);
         this.calculateScore=this.calculateScore.bind(this);
         this.postScore=this.postScore.bind(this);
@@ -31,7 +31,9 @@ class Answers extends React.Component {
         }
     }
     onChangeUser(e){
-        this.state.chosenAnswers[e.target.name]=e.target.value;
+        var chosenAnswers = this.state.chosenAnswers
+        chosenAnswers[e.target.name]=e.target.value;
+        this.setState({chosenAnswers: chosenAnswers, answers: this.state.answers, names: this.state.names, waiting: this.state.waiting})
         console.log(this.state.chosenAnswers);
     }
     calculateScore(){

@@ -14,10 +14,4 @@ const headerStyle = {
   textAlign: 'center',
   padding: '10px'
 }
-
-const linkStyle = {
-  color: '#fff',
-  textDecoration: 'none'
-}
-
 export default Header;

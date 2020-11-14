@@ -1,6 +1,6 @@
 import './App.css';
-import Home from './components/home'
 import Game from './components/game'
+import { useState } from 'react';
 
 import {
   BrowserRouter as Router,
@@ -9,14 +9,14 @@ import {
 } from "react-router-dom";
 
 function App() {
+
+  const [gameState, setGameState] = useState("login");
+
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-          <Home text="hello"/>
-        </Route>
-        <Route path="/game">
-          <Game />
+          <Game gameState={gameState} setGameState={setGameState}/>
         </Route>
       </Switch>
     </Router>
@@ -24,3 +24,4 @@ function App() {
 }
 
 export default App;
+

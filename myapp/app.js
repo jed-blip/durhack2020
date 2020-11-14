@@ -18,19 +18,19 @@ var situationArray = ["You're on a walk. A boulder rolls onto your path.",
 "You're eating food. All your food tastes like chocolate.",
 "You're eating food. All your food turns into peas."];
 
-var nameArray = [];
-var answerArray = [];
-var peopleCount = 0;
 var nameArray = [],
     answerArray = [],
     peopleCount = 0;
 var questionCount = 0;
-var qIndex = 9;
+var qIndex = totalquestions - 1;
 var roomFull = False;
 var questionsEmpty = False;
 var totalquestions = 10;
 var questionsArray = [];
+var totalScores = [];
+var scoreArray = [];
 var arrayFull = False;
+var personObject = {}
 
 //Initialises the questions.
 function initialiseQuestions() {
@@ -62,21 +62,22 @@ function contains(a, obj) {
 }
 
 app.post('/login', (req, res) => {
-    if (req.query.name === '') {
-        res.send("Name is empty");
-    }
     nameArray.push([req.query.name, peopleCount]);
+    peopleCount += 1;
+    res.send(True);
+    })
+
+app.post('/roomfull', (req, res) => {
     if (peopleCount === 3) {
         roomFull = True;
     }
-    peopleCount += 1;
-    res.send(roomFull)
+    var room = {full: roomFull};
+    res.send(room);
 })
 
 app.get('/question', function (req, res) {
-        //res.send(questionsEmpty);
     if (questionCount === 3) {
-        questionArray.pop();
+        var variable = questionArray.pop();
         qIndex -= 1;
         questionCount = 0;
     }
@@ -84,24 +85,59 @@ app.get('/question', function (req, res) {
         questionCount += 1;
     }
     if (questionArray.length() === 0) {
-        questionsEmpty = True;
-        question = null;
+        question = '';
     }
     else {
         question = questionArray[qIndex];
     }
-    res.send(question, questionsEmpty);
+    res.send(question);
 })
 
-app.post('/matching', (req, res) => {
-    answerArray.push([name, answer]);
+app.post('/sendanswer', (req, res) => {
+    answerArray.push([req.query.name, req.query.answer]);
+    res.send(True);
+})
+
+app.get('/allanswered', (req, res) => {
     if (answerArray.length() === 4) {
         arrayFull = True;
     }
-    res.send(arrayFull);
+    var answer = {full: arrayFull};
+    res.send(answer)
 })
 
-app.get('/matching', (req, res) => {
-    
+app.post('/sendscore', (req,res) => {
+    scoreArray.push([req.query.name, req.query.score]);
+    res.send(True);
 })
 
+app.post('/getscore', (req, res) => {
+    //object = name with attribute : array --> currentscore, totalscore
+    for (var i; i < nameArray.length(); i++) {
+        if (totalScores[i] === nameArray[i]) {
+            for (var y; y < nameArray.length(); y++) {
+                if (nameArray[i] === scoreArray[yy][0]){
+                    index = name
+                    break
+                }
+            }
+            totalScores[i][1] = scoreArray[index][1];
+            totalScores[i][2] += scoreArray[index][1];
+        }
+    }
+    for (var y; y < totalScores.length(); y++) {
+        personObject[totalScores[y][0]] = totalScores[y][1], totalScores[y][2];
+    }
+    res.send(personObject)
+})
+
+
+app.get('/getanswers', (req, res) => {
+    for (var i; i < answerArray; i++) {
+        if (answerArray[i][0] != req.query.name) {
+            array.push(answerArray[i]);
+        }
+    }
+    pairs.push(name, answer);
+    res.send()
+})

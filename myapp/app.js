@@ -109,6 +109,7 @@ app.get('/allanswered', (req, res) => {
 
 app.post('/sendscore', (req,res) => {
     scoreArray.push([req.query.name, req.query.score]);
+    console.log(req.query.name, req.qeury.score);
     res.send(true);
 })
 

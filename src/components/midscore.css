@@ -1,0 +1,24 @@
+.item {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+}
+    .item .score-text {
+        width: 10%;
+        text-align: right;
+    }
+    .item .name-text {
+        width: 40%;
+    }
+    .item .flex-filler {
+        flex-grow: 1;
+    }
+
+.leaderboard-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 30vh;
+    margin: 5vh 0 5vh 0;
+
+}

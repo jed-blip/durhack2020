@@ -3,10 +3,10 @@ import Waiting from "./waiting";
 import Header from './layout/header';
 import './midscore.css'
 
-class Midscore extends React.Component {
+class Finalscore extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {thisRound: [], total: []};
+        this.state = {total: []};
     }
 
     componentWillMount() {
@@ -18,17 +18,6 @@ class Midscore extends React.Component {
             "Jed": [0, 4],
         }
 
-        var thisRound = []
-        for (var key in scores) {
-            if (scores.hasOwnProperty(key)) {
-                thisRound.push([key, scores[key][0]]);
-            }
-        }
-        thisRound.sort(function(a, b) {
-            return b[1] - a[1];
-        });
-
-
         var total = []
         for (var key in scores) {
             if (scores.hasOwnProperty(key)) {
@@ -39,27 +28,12 @@ class Midscore extends React.Component {
             return b[1] - a[1];
         });
 
-        this.setState({thisRound: thisRound, total: total});
-        
-        setTimeout(() => {
-            this.props.set_game_state("question");
-        }, 5000)
+        this.setState({total: total});
     }
 
     render() {
 
-        console.log(this.state)
-
-        var scoreList = []
         var totalScoreList = []
-
-        for (var each in this.state.thisRound) {
-            scoreList.push(<div class="item">
-                <p className="name-text">{this.state.thisRound[each][0]}:</p>
-                <div className="flex-filler"></div>
-                <p className="score-text">{this.state.thisRound[each][1]}</p>
-            </div>)
-        }
 
         for (var each in this.state.total) {
             totalScoreList.push(<div class="item">
@@ -73,10 +47,6 @@ class Midscore extends React.Component {
             <div className="contain">
                 <Header />
                 <div className="leaderboard-container">
-                    <h1>Scores for this round:</h1>
-                    {scoreList}
-                </div>
-                <div className="leaderboard-container">
                     <h1>Leaderboard:</h1>
                     {totalScoreList}
                 </div>
@@ -87,4 +57,4 @@ class Midscore extends React.Component {
     
 }
 
-export default Midscore;
+export default Finalscore;

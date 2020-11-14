@@ -18,6 +18,7 @@ class Question extends React.Component {
     handleSubmit(event) {
         //send to backend
         this.setState({question: this.state.question, value: this.state.value, waiting: true});
+        this.props.set_game_state("answers");
         event.preventDefault();
     }
 

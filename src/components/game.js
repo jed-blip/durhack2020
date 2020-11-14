@@ -2,13 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import Login from "./login";
 import Question from "./question";
-
-
-class Answers extends React.Component {
-    componentWillMount() {
-        //
-    }
-}
+import Answers from "./answers";
 
 class MidScore extends React.Component {
     componentWillMount() {
@@ -33,11 +27,11 @@ class Game extends React.Component {
             );
         } else if (this.props.game_state === "question") {
             return (
-                <Question username={this.props.username}/>
+                <Question username={this.props.username} set_game_state={this.props.set_game_state}/>
             );
         } else if (this.props.game_state === "answers") {
             return (
-                <Answers />
+                <Answers username={this.props.username} set_game_state={this.props.set_game_state}/>
             );
         } else if (this.props.game_state === "mid-score") {
             return (

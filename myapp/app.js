@@ -38,7 +38,7 @@ var arrayFull = False;
 
 //Initialises the questions.
 function initialiseQuestions() {
-    l = length(situationArray)
+    l = situationArray.length
     var indices = [];
     while (indices.length < totalquestions) {
         var newindex = Math.floor(Math.random() * l);
@@ -46,8 +46,15 @@ function initialiseQuestions() {
             indices.push(newindex);
         }
     }
-    while ()
+    i = 0
+    while (questionsArray.length != totalquestions) {
+        questionsArray.push(situationArray[indices[i]])
+        i += 1
+    }
+    return questionsArray
 }
+
+var questionArray = initialiseQuestions()
 
 function contains(a, obj) {
     for (var i = 0; i < a.length; i++) {

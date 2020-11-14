@@ -22,12 +22,16 @@ var situationArray = ["You're on a walk. A boulder rolls onto your path.",
 var nameArray = [];
 var answerArray = [];
 var peopleCount = 0;
+var nameArray = [],
+    answerArray = [],
+    peopleCount = 0;
 var questionCount = 0;
 var qIndex = 9;
 var roomFull = False;
 var questionsEmpty = False;
 var totalquestions = 10;
 var questionsArray = [];
+var arrayFull = False;
 
 //ask how to get parameters, what to put after slash
 
@@ -86,10 +90,15 @@ app.get('/question', function (req, res) {
     res.send(question, questionsEmpty);
 })
 
-app.post('/game', (req, res) => {
+app.post('/matching', (req, res) => {
     answerArray.push([name, answer]);
     if (answerArray.length() === 4) {
-        res.send(True)
+        arrayFull = True;
     }
+    res.send(arrayFull);
+})
+
+app.get('/matching', (req, res) => {
+    
 })
 

@@ -27,6 +27,10 @@ class Question extends React.Component {
     }*/
 
     render() {
+        if (this.state.question === "") {
+            this.props.set_game_state("final-score")
+        }
+
         if (this.state.waiting === false) {
             return(
                 <div>

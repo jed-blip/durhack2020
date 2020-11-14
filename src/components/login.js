@@ -38,9 +38,9 @@ class Login extends React.Component {
                 <div style={{paddingTop:'10%'}}></div>
                 <button className="push_button red">Create Room</button>
                 <div style={{paddingTop:"20px"}}></div>
-                <button type="submit" className="push_button blue" onClick={this.handleSubmit}>Join Room</button>
-                <div style={{paddingTop:"20px"}}></div>
                 <form style={formInputStyle}>
+                    <button type="submit" className="blue push_button" onClick={this.handleSubmit}>Join Room</button>
+                    <div style={{paddingTop:"20px"}}></div>
                     <input 
                         type="text" 
                         name="name" 
@@ -58,9 +58,7 @@ class Login extends React.Component {
 const formInputStyle={
     width:"50%",
     display:"flex",
-    margin:"auto"
-    
-
-
+    margin:"auto",
+    flexDirection: "column",
 }
 export default Login;

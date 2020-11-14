@@ -4,12 +4,7 @@ import Login from "./login";
 import Question from "./question";
 import Answers from "./answers";
 import MidScore from "./midscore";
-
-class FinalScore extends React.Component {
-    componentWillMount() {
-        //
-    }
-}
+import FinalScore from "./finalscore"
 
 class Game extends React.Component {
 
@@ -33,7 +28,7 @@ class Game extends React.Component {
             );
         } else if (this.props.game_state === "final-score") {
             return (
-                <FinalScore />
+                <FinalScore username={this.props.username}/>
             );
         } else {
             return (

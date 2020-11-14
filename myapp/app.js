@@ -2,6 +2,17 @@ const express = require('express');
 const app = express();
 const port = 3080;
 
+//sam and jenni, this is something I have included to allow access to the API when hosted on a different domain to the front end
+const corsOptions = {
+    origin: ['*'],
+    allowedHeaders: ["Content-Type", "Authorization", "Access-Control-Allow-Methods", "Access-Control-Request-Headers"],
+    credentials: true,
+    enablePreflight: true
+}
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions))
+
 var situationArray = ["You're on a walk. A boulder rolls onto your path.", 
 "You're on a walk. A cat jumps in front of you.", 
 "You're on a walk. The sky goes black.",

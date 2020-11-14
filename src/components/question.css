@@ -1,0 +1,27 @@
+.question-text {
+    margin: 15% 0 15% 0;
+    text-align: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+    .form label {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+    }
+
+        .form label input {
+           width: 45%; 
+           margin-top: 5%;
+           margin-bottom: 15%;
+        }
+
+    .form .submit-button {
+        width: 30%;
+        align-self: center;
+    }

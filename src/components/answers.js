@@ -2,6 +2,7 @@ import React from "react";
 import Waiting from "./waiting";
 import Header from './layout/header';
 import './answers.css';
+import sendScore from './queries'
 
 class Answers extends React.Component {
     constructor(props) {
@@ -47,8 +48,9 @@ class Answers extends React.Component {
     }
     postScore(score) {
         console.log(score);
+        sendScore(this.props.username,score);
     }
-    
+
     render() {
         return (
             <div>

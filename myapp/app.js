@@ -23,13 +23,13 @@ var nameArray = [],
     peopleCount = 0;
 var questionCount = 0;
 var qIndex = totalquestions - 1;
-var roomFull = False;
-var questionsEmpty = False;
+var roomFull = false;
+var questionsEmpty = false;
 var totalquestions = 10;
 var questionsArray = [];
 var totalScores = [];
 var scoreArray = [];
-var arrayFull = False;
+var arrayFull = false;
 var personObject = {}
 var answerObject = {}
 
@@ -39,7 +39,7 @@ function initialiseQuestions() {
     var indices = [];
     while (indices.length < totalquestions) {
         var newindex = Math.floor(Math.random() * l);
-        if (contains(newindex, indices) == False) {
+        if (contains(newindex, indices) == false) {
             indices.push(newindex);
         }
     }
@@ -65,12 +65,12 @@ function contains(a, obj) {
 app.post('/login', (req, res) => {
     nameArray.push([req.query.name, peopleCount]);
     peopleCount += 1;
-    res.send(True);
+    res.send(true);
     })
 
-app.post('/roomfull', (req, res) => {
+app.get('/roomfull', (req, res) => {
     if (peopleCount === 3) {
-        roomFull = True;
+        roomFull = true;
     }
     var room = {full: roomFull};
     res.send(room);
@@ -85,7 +85,7 @@ app.get('/question', function (req, res) {
     else {
         questionCount += 1;
     }
-    if (questionArray.length() === 0) {
+    if (questionArray.length === 0) {
         question = '';
     }
     else {
@@ -96,12 +96,12 @@ app.get('/question', function (req, res) {
 
 app.post('/sendanswer', (req, res) => {
     answerArray.push([req.query.name, req.query.answer]);
-    res.send(True);
+    res.send(true);
 })
 
 app.get('/allanswered', (req, res) => {
-    if (answerArray.length() === 4) {
-        arrayFull = True;
+    if (answerArray.length === 4) {
+        arrayFull = true;
     }
     var answer = {full: arrayFull};
     res.send(answer)
@@ -109,12 +109,12 @@ app.get('/allanswered', (req, res) => {
 
 app.post('/sendscore', (req,res) => {
     scoreArray.push([req.query.name, req.query.score]);
-    res.send(True);
+    res.send(true);
 })
 
 app.post('/getscore', (req, res) => {
     //object = name with attribute : array --> currentscore, totalscore
-    for (var i; i < nameArray.length(); i++) {
+    for (var i; i < nameArray.length; i++) {
         if (totalScores[i] === nameArray[i]) {
             for (var y; y < nameArray.length(); y++) {
                 if (nameArray[i] === scoreArray[y][0]){
@@ -126,7 +126,7 @@ app.post('/getscore', (req, res) => {
             totalScores[i][2] += scoreArray[index][1];
         }
     }
-    for (var y; y < totalScores.length(); y++) {
+    for (var y; y < totalScores.length; y++) {
         personObject[totalScores[y][0]] = [totalScores[y][1], totalScores[y][2]];
     }
     res.send(personObject)
@@ -141,3 +141,7 @@ app.get('/getanswers', (req, res) => {
     }
     res.send(answerObject);
 })
+
+app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
+  })

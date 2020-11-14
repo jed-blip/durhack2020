@@ -18,7 +18,6 @@ var situationArray = ["You're on a walk. A boulder rolls onto your path.",
 "You're eating food. All your food tastes like chocolate.",
 "You're eating food. All your food turns into peas."];
 
-
 var nameArray = [];
 var answerArray = [];
 var peopleCount = 0;
@@ -32,9 +31,6 @@ var questionsEmpty = False;
 var totalquestions = 10;
 var questionsArray = [];
 var arrayFull = False;
-
-//ask how to get parameters, what to put after slash
-
 
 //Initialises the questions.
 function initialiseQuestions() {
@@ -58,11 +54,11 @@ function contains(a, obj) {
     return false;
 }
 
-app.post('/', (req, res) => {
-    if (name === '') {
+app.post('/login', (req, res) => {
+    if (req.query.name === '') {
         res.send("Name is empty");
     }
-    nameArray.push([name, peopleCount]);
+    nameArray.push([req.query.name, peopleCount]);
     if (peopleCount === 3) {
         roomFull = True;
     }

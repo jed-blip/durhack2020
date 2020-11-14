@@ -1,9 +1,12 @@
-const express = require('express', 4.17.1);
+const express = require('express');
 const app = express();
 const port = 3080;
 
 var nameArray = [];
+var answerArray = [];
 var peopleCount = 0;
+var questionCount = 0;
+var qIndex = 9;
 var roomFull = False;
 var questionsEmpty = False;
 
@@ -20,10 +23,30 @@ app.post('/', (req, res) => {
     res.send(roomFull)
 })
 
-app.get('/game', function (req, res) {
-    if (questionArray.length() == 0) {
-        res.send()
+app.get('/question', function (req, res) {
+        //res.send(questionsEmpty);
+    if (questionCount === 3) {
+        questionArray.pop();
+        qIndex -= 1;
+        questionCount = 0;
     }
-    question = questionArray[qIndex];
+    else {
+        questionCount += 1;
+    }
+    if (questionArray.length() === 0) {
+        questionsEmpty = True;
+        question = null;
+    }
+    else {
+        question = questionArray[qIndex];
+    }
+    res.send(question, questionsEmpty);
+})
+
+app.post('/game', (req, res) => {
+    answerArray.push([name, answer]);
+    if (answerArray.length() === 4) {
+        res.send(True)
+    }
 })
 

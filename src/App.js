@@ -11,12 +11,13 @@ import {
 function App() {
 
   const [gameState, setGameState] = useState("login");
+  const [username, setUsername] = useState("");
 
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-          <Game gameState={gameState} setGameState={setGameState}/>
+          <Game game_state={gameState} set_game_state={setGameState} username={username} set_username={setUsername}/>
         </Route>
       </Switch>
     </Router>

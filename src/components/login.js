@@ -31,9 +31,9 @@ class Login extends React.Component {
     handleSubmit(event) {
 
         this.props.set_username(this.state.value);
-        console.log(this.props.username);
+        console.log(this.state.value)
         // login - POST - queries: name=""
-        fetch(host+"login?name="+this.props.username, {
+        fetch(host+"login?name="+this.state.value, {
             headers:{
                 'content-type':'application/json; charset=UTF-8'
             },

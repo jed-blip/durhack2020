@@ -1,12 +1,17 @@
-import React from "react";
+import React,{useState} from "react";
+
 import Waiting from "./waiting";
 import Header from './layout/header';
-import './question.css'
+import './question.css';
+import {} from './queries';
+const host='http://ec2-35-177-205-141.eu-west-2.compute.amazonaws.com:3080/';
 
 class Question extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { question: "Lorem ipsum?", value: "", waiting: false};
+        
+        this.state = { question: null , value: "", waiting: false};
+        
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -18,13 +23,41 @@ class Question extends React.Component {
     handleSubmit(event) {
         //send to backend
         this.setState({question: this.state.question, value: this.state.value, waiting: true});
-        this.props.set_game_state("answers");
+        // /sendanswer - POST - queries: answer="", name=""
+        fetch(host+"sendanswer?answer="+this.state.value+"&name="+this.props.username, {
+            headers:{
+                'content-type':'application/json; charset=UTF-8'
+            },
+            method: 'POST',
+        })
+        .then(data=>{return data.text()})
+        .then(res=>{console.log(res)})
+        var interval=setInterval(() => {
+            // /roomfull - GET - return {full: [boolean]}
+            fetch(host+"allanswered", {
+                headers:{
+                   'content-type':'application/json; charset=UTF-8'
+                   },
+                method: 'GET',
+            })
+            .then(data=>{return data.json()})
+            .then(res=>{if (res.full){clearInterval(interval);this.props.set_game_state("answers")}else{
+                this.setState({question:this.state.question,value:this.state.value,waiting:true})
+            }})
+        }, 500)
         event.preventDefault();
     }
 
-    /*componentWillMount() {
-        this.state.res = "" //a function
-    }*/
+    componentWillMount() {
+        fetch(host+"question", {
+            headers:{
+                'content-type':'application/json; charset=UTF-8'
+            },
+            method: 'GET',
+        })
+        .then(data=>{return data.text()})
+        .then(res=>{this.setState({question:res,answer:this.state.answer,waiting:this.state.waiting})})
+    };
 
     render() {
         if (this.state.question === "") {

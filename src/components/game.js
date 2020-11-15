@@ -12,7 +12,7 @@ class Game extends React.Component {
 
         if (this.props.game_state === "login") {
             return (
-                <Login set_game_state={this.props.set_game_state} set_username={this.props.set_username}/>
+                <Login set_game_state={this.props.set_game_state} set_username={this.props.set_username} username={this.props.username}/>
             );
         } else if (this.props.game_state === "question") {
             return (

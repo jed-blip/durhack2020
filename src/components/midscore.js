@@ -1,6 +1,9 @@
 import React from "react";
 import Header from './layout/header';
 import './midscore.css'
+const wait_time=10000;
+const host='http://ec2-35-177-205-141.eu-west-2.compute.amazonaws.com:3080/';
+
 
 class Midscore extends React.Component {
     constructor(props) {
@@ -10,39 +13,46 @@ class Midscore extends React.Component {
 
     componentWillMount() {
         //ask for the answer-user pairs
-        var scores = {
-            "Alan": [1, 5],
-            "Bob": [2, 8],
-            "Chris": [3, 3],
-            "Jed": [0, 4],
-        }
-
-        var thisRound = []
-        for (var key in scores) {
-            if (scores.hasOwnProperty(key)) {
-                thisRound.push([key, scores[key][0]]);
+        // getscore - GET - return {[name]: [[roundscore, totalscore]], ....}
+        fetch(host+"getscore", {
+            headers:{
+                'content-type':'application/json; charset=UTF-8'
+            },
+            method: 'GET',
+            
+        })
+        .then(data=>{return data.json()})
+        .then(res=>{
+            var thisRound = []
+            for (var key in res) {
+                if (res.hasOwnProperty(key)) {
+                    thisRound.push([key, res[key][0]]);
+                }
             }
-        }
-        thisRound.sort(function(a, b) {
-            return b[1] - a[1];
-        });
-
-
-        var total = []
-        for (var key2 in scores) {
-            if (scores.hasOwnProperty(key2)) {
-                total.push([key2, scores[key2][1]]);
+            thisRound.sort(function(a, b) {
+                return b[1] - a[1];
+            });
+    
+    
+            var total = []
+            for (var key2 in res) {
+                if (res.hasOwnProperty(key2)) {
+                    total.push([key2, res[key2][1]]);
+                }
             }
-        }
-        total.sort(function(a, b) {
-            return b[1] - a[1];
-        });
-
-        this.setState({thisRound: thisRound, total: total});
+            total.sort(function(a, b) {
+                return b[1] - a[1];
+            });
+    
+            this.setState({thisRound: thisRound, total: total});
+        })
+        
+       
+       
         
         setTimeout(() => {
             this.props.set_game_state("question");
-        }, 5000)
+        }, wait_time)
     }
 
     render() {

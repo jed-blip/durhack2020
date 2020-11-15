@@ -1,24 +1,21 @@
-const host='http://localhost:3080/';
+const host='http://ec2-35-177-205-141.eu-west-2.compute.amazonaws.com:3080/';
 
 
 function login(name){
     // login - POST - queries: name=""
-    fetch(host+"login", {
+    fetch(host+"login?name="+name, {
         headers:{
             'content-type':'application/json; charset=UTF-8'
         },
         method: 'POST',
-        body: {
-            name: name
-        }
     })
-    .then(data=>{return data.json()})
+    //.then(data=>{return data.json()})
     .then(res=>{console.log(res)})
 };
 
 function roomFull(){
     // /roomfull - GET - return {full: [boolean]}
-    fetch(host+"roomFull", {
+    fetch(host+"roomfull", {
         headers:{
             'content-type':'application/json; charset=UTF-8'
         },
@@ -27,31 +24,28 @@ function roomFull(){
     .then(data=>{return data.json()})
     .then(res=>{console.log(res)})
 };
-function getQuestion(){
-// /getquestion - GET - return question
-    fetch(host+"getQuestion", {
+function getQuestion(state,setState){
+// /question - GET - return question
+    
+    fetch(host+"question", {
         headers:{
             'content-type':'application/json; charset=UTF-8'
         },
         method: 'GET',
     })
-    .then(data=>{return data.json()})
-    .then(res=>{console.log(res)})
+    .then(data=>{return data.text()})
+    .then(res=>{setState({question:res,answer:state.answer,waiting:state.waiting})})
 };
 
 function sendAnswer(answer,name){
 // /sendanswer - POST - queries: answer="", name=""
-    fetch(host+"sendAnswer", {
+    fetch(host+"sendAnswer?answer="+answer+"&name="+name, {
         headers:{
             'content-type':'application/json; charset=UTF-8'
         },
         method: 'POST',
-        body: {
-            name: name,
-            answer:answer
-        }
     })
-    .then(data=>{return data.json()})
+    //.then(data=>{return data.json()})
     .then(res=>{console.log(res)})
 };
 
@@ -68,7 +62,7 @@ function allAnswered(){
 };
 function getAnswers(name){
 // getanswers - GET - queries: name="" - return {[name]: [answer], ....}
-    fetch(host+"getAnswers", {
+    fetch(host+"getAnswers?name="+name, {
         headers:{
             'content-type':'application/json; charset=UTF-8'
         },
@@ -80,17 +74,15 @@ function getAnswers(name){
 
 function sendScore(name,score){
 // sendscore - POST - queries: name="", score=""
-    fetch(host+"sendScore", {
+    fetch(host+"sendscore?name="+name+"&score="+score, {
         headers:{
             'content-type':'application/json; charset=UTF-8'
         },
         method: 'POST',
-        body: {
-            name: name,
-            score:score
-        }
+        //mode:"no-cors"  
+
     })
-    .then(data=>{return data.json()})
+    //.then(data=>{return data.json()})
     .then(res=>{console.log(res)})
 };
 function getScores(){
@@ -106,5 +98,4 @@ function getScores(){
     .then(res=>{console.log(res)})
  
 };
-
-console.log(getQuestion());
+export {getQuestion, sendScore};

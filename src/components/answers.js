@@ -2,7 +2,8 @@ import React from "react";
 import Waiting from "./waiting";
 import Header from './layout/header';
 import './answers.css';
-import sendScore from './queries'
+import {sendScore} from './queries';
+const host='http://ec2-35-177-205-141.eu-west-2.compute.amazonaws.com:3080/';
 
 class Answers extends React.Component {
     constructor(props) {
@@ -16,20 +17,30 @@ class Answers extends React.Component {
 
     componentWillMount() {
         //ask for the answer-user pairs
-        this.setState({
-            chosenAnswers:{},
-        answers: {
-            "Alice":"Answer1",
-            "Bob":"Answer2",
-            "Charlie":"Answer3"
-        },names:["Alice","Bob","Charlie"], waiting: false});
-
-        for (var key in this.state.answers) {
-            if (this.state.answers.hasOwnProperty(key)) {
-                this.state.names.push(key);
-
+        // getanswers - GET - queries: name="" - return {[name]: [answer], ....}
+        fetch(host+"getAnswers?name="+this.props.username, {
+            headers:{
+                'content-type':'application/json; charset=UTF-8'
+            },
+            method: 'GET',
+        })
+        .then(data=>{return data.json()})
+        .then(res=>{
+            var arr=[];
+            for (var key in res) {
+                if (res.hasOwnProperty(key)) {
+                    arr.push(key);
+    
+                }
             }
-        }
+            this.setState({
+                chosenAnswers:{},
+                answers: res,names:arr, waiting: false});
+            console.log(res, this.state)
+        })
+        
+
+        
     }
     onChangeUser(e){
         var chosenAnswers = this.state.chosenAnswers
@@ -48,12 +59,22 @@ class Answers extends React.Component {
             }
         }
         this.postScore(score);
-        this.setState({chosenAnswers:{}, answers: {},names:[], waiting: true});
-        this.props.set_game_state("mid-score")
     }
 
     postScore(score) {
-        console.log(score);
+        var interval=setInterval(() => {
+            // /roomfull - GET - return {ready: [boolean]}
+            fetch(host+"allscoressent", {
+                headers:{
+                   'content-type':'application/json; charset=UTF-8'
+                   },
+                method: 'GET',
+            })
+            .then(data=>{return data.json()})
+            .then(res=>{if (res.ready){clearInterval(interval);this.props.set_game_state("mid-score")}else{
+                this.setState({chosenAnswers:this.state.chosenAnswers,answer:this.state.answer,names:this.state.names,waiting:true})
+            }})
+        }, 500)
         sendScore(this.props.username,score);
     }
 
@@ -69,7 +90,7 @@ class Answers extends React.Component {
                             <option value="" selected disabled hidden></option>
                             <option value={this.state.names[0]}>{this.state.names[0]}</option>
                             <option value={this.state.names[1]}>{this.state.names[1]}</option>
-                            <option value={this.state.names[2]}>{this.state.names[2]}</option>
+                            {/* <option value={this.state.names[2]}>{this.state.names[2]}</option> */}
                         </select>
                         </div>
                         <div style={{paddingTop:"10px"}}></div>
@@ -82,12 +103,12 @@ class Answers extends React.Component {
                             <option value="" selected disabled hidden></option>
                             <option value={this.state.names[0]}>{this.state.names[0]}</option>
                             <option value={this.state.names[1]}>{this.state.names[1]}</option>
-                            <option value={this.state.names[2]}>{this.state.names[2]}</option>
+                            {/* <option value={this.state.names[2]}>{this.state.names[2]}</option> */}
                         </select>
                         </div>
                         <div style={{paddingTop:"10px"}}></div>
                     </div>
-                    <div style={boxStyle}>
+                    {/* <div style={boxStyle}>
 
                         <div style={AnswerStyle}>
                             {this.state.answers[this.state.names[2]]}
@@ -100,7 +121,7 @@ class Answers extends React.Component {
                         </div>
                         <div style={{paddingTop:"10px"}}></div>
                     </div>
-                    <div style={{paddingTop:"10px"}}></div>
+                    <div style={{paddingTop:"10px"}}></div> */}
                     <button onClick={this.calculateScore} type="submit" className="push_button blue">Submit</button>
                 </div>
             );

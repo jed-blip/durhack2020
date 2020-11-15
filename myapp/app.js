@@ -120,16 +120,16 @@ app.post('/sendscore', (req,res) => {
 
 app.get('/allscoressent', (req, res) => {
     if (scoreArray.length == 3) {
-        res.send(true);
+        res.send({ready: true});
     } else {
-        res.send(false);
+        res.send({ready: false});
     }
 })
 
 app.post('/getscore', (req, res) => {
     var personObject = {}
     //object = name with attribute : array --> currentscore, totalscore
-    for (var i=0; i < nameArray.length; i++) {
+    /*for (var i=0; i < nameArray.length; i++) {
         if (totalScores[i] === nameArray[i]) {
             for (var y=0; y < nameArray.length(); y++) {
                 if (nameArray[i] === scoreArray[y][0]){
@@ -143,6 +143,9 @@ app.post('/getscore', (req, res) => {
     }
     for (var y=0; y < totalScores.length; y++) {
         personObject[totalScores[y][0]] = [totalScores[y][1], totalScores[y][2]];
+    }*/
+    for (var y=0; y < scoreArray.length; y++) {
+        personObject[scoreArray[y][0]] = [scoreArray[y][1], scoreArray[y][1]];
     }
     res.send(personObject)
 })

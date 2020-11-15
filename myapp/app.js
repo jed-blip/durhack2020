@@ -23,17 +23,16 @@ var situationArray = ["You're on a walk. A boulder rolls onto your path.",
 "You're eating food. All your food tastes like chocolate.",
 "You're eating food. All your food turns into peas."];
 
-var nameArray = [],
-    answerArray = [],
-    peopleCount = 0;
+var nameArray = [];
+var answerArray = [];
+var peopleCount = 0;
 var questionCount = 0;
 var qIndex = totalquestions - 1;
 var roomFull = false;
-var questionsEmpty = false;
 var totalquestions = 10;
 var questionsArray = [];
-var totalScores = [];
-var scoreArray = [];
+var totalScoreArray = {};
+var scoreArray = {};
 var arrayFull = false;
 
 //Initialises the questions.
@@ -66,9 +65,10 @@ function contains(a, obj) {
 }
 
 app.post('/login', (req, res) => {
-    nameArray.push([req.query.name, peopleCount]);
-    peopleCount += 1;
-    res.send(true);
+        nameArray.push([req.query.name, peopleCount]);
+        totalScoreArray[req.query.name] = 0;
+        peopleCount += 1;
+        res.send(true);
     })
 
 app.get('/roomfull', (req, res) => {
@@ -80,22 +80,17 @@ app.get('/roomfull', (req, res) => {
 })
 
 app.get('/question', function (req, res) {
-    if (questionCount === 3) {
-        var variable = questionArray.pop();
-        qIndex -= 1;
-        questionCount = 0;
-    }
-    else {
-        questionCount += 1;
-    }
+    answerArray = [];
+    scoreArray = {};
     if (questionArray.length === 0) {
         question = '';
+        questionArray = initialiseQuestions();
     }
     else {
-        question = questionArray[qIndex];
+        question = questionArray.pop();
     }
-    console.log(question);
-    res.send("This is a test question");
+
+    res.send(question);
 })
 
 app.post('/sendanswer', (req, res) => {
@@ -114,12 +109,13 @@ app.get('/allanswered', (req, res) => {
 
 app.post('/sendscore', (req,res) => {
     console.log(req.query.name, req.query.score);
-    scoreArray.push([req.query.name, req.query.score]);
+    scoreArray[req.query.name] = req.query.score;
+    totalScoreArray[req.query.name] += req.query.score;
     res.send(true);
 })
 
 app.get('/allscoressent', (req, res) => {
-    if (scoreArray.length == 3) {
+    if (Object.keys(scoreArray).length === 3) {
         res.send({ready: true});
     } else {
         res.send({ready: false});
@@ -128,41 +124,33 @@ app.get('/allscoressent', (req, res) => {
 
 app.get('/getscore', (req, res) => {
     var personObject = {}
-    //object = name with attribute : array --> currentscore, totalscore
-    /*for (var i=0; i < nameArray.length; i++) {
-        if (totalScores[i] === nameArray[i]) {
-            for (var y=0; y < nameArray.length(); y++) {
-                if (nameArray[i] === scoreArray[y][0]){
-                    index = name
-                    break
-                }
-            }
-            totalScores[i][1] = scoreArray[index][1];
-            totalScores[i][2] += scoreArray[index][1];
-        }
+    for (var y=0; y < nameArray.length; y++) {
+        personObject[nameArray[y]] = [scoreArray[y], totalScoreArray[y]];
     }
-    for (var y=0; y < totalScores.length; y++) {
-        personObject[totalScores[y][0]] = [totalScores[y][1], totalScores[y][2]];
-    }*/
-    for (var y=0; y < scoreArray.length; y++) {
-        personObject[scoreArray[y][0]] = [scoreArray[y][1], scoreArray[y][1]];
+
+    res.send(personObject)
+})
+
+app.get('/getfinalscore', (req, res) => {
+    var personObject = {}
+    for (var y=0; y < nameArray.length; y++) {
+        personObject[nameArray[y]] = [scoreArray[y], totalScoreArray[y]];
     }
+
+    nameArray = [];
+    scoreArray = {};
+    totalScoreArray = {};
+
     res.send(personObject)
 })
 
 
 app.get('/getanswers', (req, res) => {
     var answerObject = {}
-    console.log(answerArray)
  
     for (var i=0; i < answerArray.length; i++) {
-        console.log(i);
-        console.log(answerArray[i][0]);
-        console.log(req.query.name);
         if (answerArray[i][0] != req.query.name) {
-            console.log(answerArray[i][0]);
             answerObject[answerArray[i][0]] = answerArray[i][1];
-            console.log(answerObject);
         }
     }
  

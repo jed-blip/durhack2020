@@ -1,17 +1,23 @@
-import React from 'react'
+import React from 'react';
 
-function Header() {
-  return (
-    <header style={headerStyle}>
-      <h1>Ice Breaker</h1>
-    </header>
-  )
+
+class Header extends React.Component {
+  render(){
+    return (
+      <div>
+        <header style={headerStyle}>
+          <h3 style={{textAlign:"left",position:"absolute",left:"0",top:"0"}}>Username: {this.props.username} </h3>
+          <h1>Ice Breaker</h1>
+        </header>
+      </div>
+    )}
 }
 
 const headerStyle = {
   background: '#333',
   color: '#fff',
   textAlign: 'center',
-  padding: '10px'
+  padding: '10px',
+  position:"relative"
 }
 export default Header;

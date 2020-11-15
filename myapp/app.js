@@ -96,6 +96,7 @@ app.get('/question', function (req, res) {
     else {
         question = questionArray[qIndex];
     }
+    console.log(question);
     res.send(question);
 })
 

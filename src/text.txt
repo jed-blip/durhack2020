@@ -1,0 +1,29 @@
+
+//join app in room 1
+//give username and want to join room - ok , 4 people start room
+//if four people, round true
+
+//create question array from 100 random questions - in a file?
+//give next question - gets small and smaller - if empty  no more questions
+//seperate query for final score
+
+//they will POST 
+//name: total score, latest input, score for round, 
+//pairs : name, match
+
+//nameArray = [[name, 0], [name, 1], [name, 2], ....]
+//array: = [[name, answer], [name, answer].....]
+
+
+//each person asks for the questions
+
+//post route, sending answer back: name, input
+//route query : check if everyone has answered 
+
+//query user answer pairs: send all users and their asners excluding the person name
+//send back score : they caclulate score for round, we calculate total score
+//check everyone sent score - Boolean
+
+//query for user score: user, score for round, total score
+
+///final score page : person, total

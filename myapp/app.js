@@ -145,6 +145,9 @@ app.get('/getanswers', (req, res) => {
     console.log(answerArray)
  
     for (var i; i < answerArray.length; i++) {
+        console.log(i);
+        console.log(answerArray[i][0]);
+        console.log(req.query.name);
         if (answerArray[i][0] != req.query.name) {
             console.log(answerArray[i][0]);
             answerObject[answerArray[i][0]] = answerArray[i][1];

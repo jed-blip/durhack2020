@@ -1,6 +1,9 @@
 import React from "react";
+
 import Header from './layout/header';
 import './midscore.css'
+
+const host='http://ec2-35-177-205-141.eu-west-2.compute.amazonaws.com:3080/';
 
 class Finalscore extends React.Component {
     constructor(props) {
@@ -10,24 +13,28 @@ class Finalscore extends React.Component {
 
     componentWillMount() {
         //ask for the answer-user pairs
-        var scores = {
-            "Alan": [1, 5],
-            "Bob": [2, 8],
-            "Chris": [3, 3],
-            "Jed": [0, 4],
-        }
-
-        var total = []
-        for (var key in scores) {
-            if (scores.hasOwnProperty(key)) {
-                total.push([key, scores[key][1]]);
+        // getscore - GET - return {[name]: [[roundscore, totalscore]], ....}
+        fetch(host+"getfinalscore", {
+            headers:{
+                'content-type':'application/json; charset=UTF-8'
+            },
+            method: 'GET',
+            
+        })
+        .then(data=>{return data.json()})
+        .then(res=>{
+            var total = []
+            for (var key2 in res) {
+                if (res.hasOwnProperty(key2)) {
+                    total.push([key2, res[key2][1]]);
+                }
             }
-        }
-        total.sort(function(a, b) {
-            return b[1] - a[1];
-        });
-
-        this.setState({total: total});
+            total.sort(function(a, b) {
+                return b[1] - a[1];
+            });
+    
+            this.setState({total: total});
+        })
     }
 
     render() {

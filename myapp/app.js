@@ -75,6 +75,8 @@ app.post('/login', (req, res) => {
 app.get('/roomfull', (req, res) => {
     if (peopleCount === 3) {
         roomFull = true;
+    } else {
+        roomFull = false;
     }
     var room = {full: roomFull};
     res.send(room);
@@ -103,9 +105,10 @@ app.post('/sendanswer', (req, res) => {
 app.get('/allanswered', (req, res) => {
     if (answerArray.length === 3) {
         arrayFull = true;
+    } else {
+        arrayFull = false;
     }
     var answer = {full: arrayFull};
-    answerArray = [];
     res.send(answer)
 })
 

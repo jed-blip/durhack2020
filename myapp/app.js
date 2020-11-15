@@ -67,11 +67,12 @@ function contains(a, obj) {
 }
 
 app.post('/login', (req, res) => {
-        nameArray.push([req.query.name, peopleCount]);
-        totalScoreArray[req.query.name] = 0;
-        peopleCount += 1;
-        res.send(true);
-    })
+    nameArray.push([req.query.name, peopleCount]);
+    totalScoreArray[req.query.name] = 0;
+    peopleCount += 1;
+    console.log(nameArray);
+    res.send(true);
+})
 
 app.get('/roomfull', (req, res) => {
     if (peopleCount === 3) {

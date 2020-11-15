@@ -46,7 +46,9 @@ function initialiseQuestions() {
         }
     }
     i = 0
-    while (questionsArray.length != totalquestions) {
+    while (questionsArray.length != totalquestions*3) {
+        questionsArray.push(situationArray[indices[i]])
+        questionsArray.push(situationArray[indices[i]])
         questionsArray.push(situationArray[indices[i]])
         i += 1
     }

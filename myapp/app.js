@@ -97,7 +97,7 @@ app.get('/question', function (req, res) {
         question = questionArray[qIndex];
     }
     console.log(question);
-    res.send("This is a test question");
+    res.send({question: "This is a test question"});
 })
 
 app.post('/sendanswer', (req, res) => {

@@ -106,7 +106,7 @@ app.post('/sendanswer', (req, res) => {
 })
 
 app.get('/allanswered', (req, res) => {
-    if (answerArray.length === 4) {
+    if (answerArray.length === 3) {
         arrayFull = true;
     }
     var answer = {full: arrayFull};

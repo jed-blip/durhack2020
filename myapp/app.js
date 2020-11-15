@@ -102,6 +102,7 @@ app.get('/question', function (req, res) {
 
 app.post('/sendanswer', (req, res) => {
     answerArray.push([req.query.name, req.query.answer]);
+    console.log(answerArray);
     res.send(true);
 })
 

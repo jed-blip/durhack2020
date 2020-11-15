@@ -127,7 +127,7 @@ app.get('/allscoressent', (req, res) => {
 app.get('/getscore', (req, res) => {
     var personObject = {}
     for (var y=0; y < nameArray.length; y++) {
-        personObject[nameArray[y]] = [scoreArray[y], totalScoreArray[y]];
+        personObject[nameArray[y]] = [scoreArray[nameArray[y]], totalScoreArray[nameArray[y]]];
     }
 
     res.send(personObject)
@@ -136,7 +136,7 @@ app.get('/getscore', (req, res) => {
 app.get('/getfinalscore', (req, res) => {
     var personObject = {}
     for (var y=0; y < nameArray.length; y++) {
-        personObject[nameArray[y]] = [scoreArray[y], totalScoreArray[y]];
+        personObject[nameArray[y]] = [scoreArray[nameArray[y]], totalScoreArray[nameArray[y]]];
     }
 
     nameArray = [];

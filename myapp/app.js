@@ -113,6 +113,8 @@ app.post('/sendscore', (req,res) => {
     console.log(req.query.name, req.query.score);
     scoreArray[req.query.name] = req.query.score;
     totalScoreArray[req.query.name] += req.query.score;
+    console.log(scoreArray);
+    console.log(totalScoreArray);
     res.send(true);
 })
 

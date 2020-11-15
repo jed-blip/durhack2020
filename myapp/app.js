@@ -26,8 +26,6 @@ var situationArray = ["You're on a walk. A boulder rolls onto your path.",
 var nameArray = [];
 var answerArray = [];
 var peopleCount = 0;
-var questionCount = 0;
-var qIndex = totalquestions - 1;
 var roomFull = false;
 var totalquestions = 10;
 var questionsArray = [];
@@ -107,6 +105,7 @@ app.get('/allanswered', (req, res) => {
         arrayFull = true;
     }
     var answer = {full: arrayFull};
+    answerArray = [];
     res.send(answer)
 })
 

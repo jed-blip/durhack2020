@@ -141,9 +141,9 @@ app.post('/getscore', (req, res) => {
 
 
 app.get('/getanswers', (req, res) => {
-    for (var i; i < answerArray; i++) {
+    for (var i; i < len(answerArray); i++) {
         if (answerArray[i][0] != req.query.name) {
-            answerObject[answerArray[y][0]] = answerArray[y][1];
+            answerObject[answerArray[i][0]] = answerArray[i][1];
         }
     }
     res.send(answerObject);

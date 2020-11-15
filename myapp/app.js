@@ -126,7 +126,7 @@ app.get('/allscoressent', (req, res) => {
     }
 })
 
-app.post('/getscore', (req, res) => {
+app.get('/getscore', (req, res) => {
     var personObject = {}
     //object = name with attribute : array --> currentscore, totalscore
     /*for (var i=0; i < nameArray.length; i++) {

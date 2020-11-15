@@ -118,6 +118,14 @@ app.post('/sendscore', (req,res) => {
     res.send(true);
 })
 
+app.get('/allscoressent', (req, res) => {
+    if (scoreArray.length == 3) {
+        res.send(true);
+    } else {
+        res.send(false);
+    }
+})
+
 app.post('/getscore', (req, res) => {
     var personObject = {}
     //object = name with attribute : array --> currentscore, totalscore

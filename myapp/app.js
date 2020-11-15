@@ -121,9 +121,9 @@ app.post('/sendscore', (req,res) => {
 app.post('/getscore', (req, res) => {
     var personObject = {}
     //object = name with attribute : array --> currentscore, totalscore
-    for (var i; i < nameArray.length; i++) {
+    for (var i=0; i < nameArray.length; i++) {
         if (totalScores[i] === nameArray[i]) {
-            for (var y; y < nameArray.length(); y++) {
+            for (var y=0; y < nameArray.length(); y++) {
                 if (nameArray[i] === scoreArray[y][0]){
                     index = name
                     break
@@ -133,7 +133,7 @@ app.post('/getscore', (req, res) => {
             totalScores[i][2] += scoreArray[index][1];
         }
     }
-    for (var y; y < totalScores.length; y++) {
+    for (var y=0; y < totalScores.length; y++) {
         personObject[totalScores[y][0]] = [totalScores[y][1], totalScores[y][2]];
     }
     res.send(personObject)
@@ -144,7 +144,7 @@ app.get('/getanswers', (req, res) => {
     var answerObject = {}
     console.log(answerArray)
  
-    for (var i; i < answerArray.length; i++) {
+    for (var i=0; i < answerArray.length; i++) {
         console.log(i);
         console.log(answerArray[i][0]);
         console.log(req.query.name);
